@@ -1,0 +1,14 @@
+<!--
+title: Client Scripting in BeamMP
+description: This will briefly introduce you to the concept of scripting for BeamMP on client side.
+published: true
+date: 2022-12-22T09:22:55.124Z
+tags: scripting, client, server, lua, coding, communication
+editor: ckeditor
+dateCreated: 2020-08-28T19:06:03.744Z
+-->
+
+<p>BeamMP allows you to create your own client side plugins as well. We have provided a few functions that you can use to communicate with other multiplayer mods, and other players through the server.</p>
+<p>You can create an event your custom functions can hook onto. For example to parse the chat use the <span style="font-family:'Courier New', Courier, monospace;">ChatMessageReceived </span>event as such:</p>
+<p><span style="font-family:'Courier New', Courier, monospace;">local function chatReceived(msg) -- Receive event with parameters</span><br><span style="font-family:'Courier New', Courier, monospace;">&nbsp; print("chat received: "..msg)</span><br><span style="font-family:'Courier New', Courier, monospace;">&nbsp; local i = string.find(s, ":") -- Find where our first ':' is, used to separate the sender and message</span><br><span style="font-family:'Courier New', Courier, monospace;">&nbsp; if i == nil then</span><br><span style="font-family:'Courier New', Courier, monospace;">&nbsp; &nbsp; print("error parsing message: separator could not be found!")</span><br><span style="font-family:'Courier New', Courier, monospace;">&nbsp; &nbsp; return -- Could not find separator, cancel function</span><br><span style="font-family:'Courier New', Courier, monospace;">&nbsp; end</span><br><br><span style="font-family:'Courier New', Courier, monospace;">&nbsp; print("index of separator: "..tostring(i))</span><br><br><span style="font-family:'Courier New', Courier, monospace;">&nbsp; local sender = string.sub(msg, 1, i-1) -- Substring our input to separate its 2 parts</span><br><span style="font-family:'Courier New', Courier, monospace;">&nbsp; local message = string.sub(msg, i+1, -1)</span><br><span style="font-family:'Courier New', Courier, monospace;">&nbsp; -- Do whatever you want to with the message</span><br><span style="font-family:'Courier New', Courier, monospace;">&nbsp; print("sender: " .. sender)</span><br><span style="font-family:'Courier New', Courier, monospace;">&nbsp; print("message: ".. message)</span><br><span style="font-family:'Courier New', Courier, monospace;">end</span></p>
+<p><span style="font-family:'Courier New', Courier, monospace;">AddEventHandler("ChatMessageReceived", chatReceived)</span><br><span style="font-family:'Courier New', Courier, monospace;">TriggerServerEvent("ServerEventName", &nbsp;"Data")</span><br><span style="font-family:'Courier New', Courier, monospace;">AddEventHandler("EventNameToBeCalled", Function())</span></p>

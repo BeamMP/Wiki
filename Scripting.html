@@ -1,0 +1,251 @@
+<!--
+title: Scripting in BeamMP
+description: This will briefly introduce you to the concept of scripting for BeamMP.
+published: true
+date: 2022-12-22T09:22:38.585Z
+tags: scripting
+editor: ckeditor
+dateCreated: 2020-06-17T19:31:24.640Z
+-->
+
+<p>BeamMP allows server-owners to extend the functionality of their server via custom <a href="lua.org">lua</a> scripts/plugins.</p>
+<h1>Plugin Folder</h1>
+<p>all lua files live inside of their respective plugin folder, the plugin folder should look like this: <u>Resources\Server\&lt;pluginName&gt;</u> every lua file within a plugin folder has its own dedicated lua environment; under normal circumstances, separate lua files cannot interact with each-other beyond triggering events.</p>
+<h1>Events</h1>
+<p>&nbsp;in BeamMP, &nbsp;events must be registered using <u>RegisterEvent(&lt;EventName&gt;,&lt;functionName&gt;)</u> otherwise they will not be triggered, the 'EventName' parameter is the title of the desired event to be registered as a string, 'FunctionName' is the name of the <strong>global</strong> function as a <strong>string</strong> that you want to be called when the event is triggered.&nbsp;</p>
+<h2>Vanilla BeamMP events</h2>
+<p>Vanilla BeamMP servers ship with various pre-existing events which correspond to various in-game actions. can be cancelled by returning 1 in the function.</p>
+<figure class="table">
+  <table>
+    <thead>
+      <tr>
+        <th>Event Name</th>
+        <th>Parameters</th>
+        <th>When is it triggered?</th>
+        <th>When cancelled</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>onInit</td>
+        <td>nothing</td>
+        <td>When the lua file is loaded</td>
+        <td>Does nothing</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>onPlayerConnecting</td>
+        <td>PlayerID</td>
+        <td>When the player presses 'Connect'</td>
+        <td>Not recomended, use DropPlayer(PlayerID, reason)</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>onPlayerJoining</td>
+        <td>PlayerID</td>
+        <td>When the player begins loading</td>
+        <td>Not recomended, use DropPlayer(PlayerID, reason)</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>onPlayerJoin</td>
+        <td>PlayerID</td>
+        <td>When the player is done loading</td>
+        <td>Not recomended, use DropPlayer(PlayerID, reason)</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>onPlayerDisconnect</td>
+        <td>PlayerID</td>
+        <td>When the player leaves the server</td>
+        <td>Does Nothing</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>onChatMessage</td>
+        <td>PlayerID, name, message</td>
+        <td>When a player sends a chat message</td>
+        <td>Message does not display in chatbox</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>onVehicleSpawn</td>
+        <td>PlayerID, vehicleID, &nbsp;data</td>
+        <td>When a player spawns a vehicle</td>
+        <td>Deletes vehicle, does not trigger onVehicleDeleted</td>
+        <td>data is raw JSON</td>
+      </tr>
+      <tr>
+        <td>onVehicleEdited</td>
+        <td>PlayerID, vehicleID, &nbsp;data</td>
+        <td>When a player applies their edits to the server</td>
+        <td>Deletes vehicle, does not trigger onVehicleDeleted</td>
+        <td>data is raw JSON</td>
+      </tr>
+      <tr>
+        <td>onVehicleDeleted</td>
+        <td>PlayerID, vehicleID</td>
+        <td>When a player deletes their vehicle</td>
+        <td>Does Nothing</td>
+        <td>&nbsp;</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<h2>User-defined events</h2>
+<p>Users may also define their own Events beyond the pre-existing BeamMP events, they are registered the same way as normal events, the difference being that user-defined events are not tied to a specific event on the server and instead have to be triggered manually.</p>
+<p>User-defined events can be triggered using two functions, <u>TriggerLocalEvent(&lt;EventName&gt;, ...)</u> or <u>TriggerGlobalEvent(&lt;EventName&gt;, ...)</u> String, EventName is the name that users will register their events under, any parameters after EventName, will be passed to the function the event points to. <u>TriggerLocalEvent(&lt;EventName&gt;, ...)</u> will execute any registered instances of EventName within the <strong>plugin folder</strong>, whereas <u>TriggerGlobalEvent(&lt;EventName&gt;, ...)</u> will execute <strong>any</strong> registered instance of EventName regardless of plugin folder.</p>
+<p>Under normal circumstances, user-defined events are the only way that separate lua files will be able to communicate with each other.</p>
+<h1>Functions</h1>
+<p>BeamMP also has a set of predefined global functions you may use.</p>
+<figure class="table">
+  <table>
+    <thead>
+      <tr>
+        <th>Function</th>
+        <th>Description</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>GetPlayerName(&lt;serverID&gt;)</td>
+        <td>Returns the players discord name as a string</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>GetPlayerDiscordID(&lt;serverID&gt;)</td>
+        <td>Deprecated, for compatibility, currently returns the player's name as a string.</td>
+        <td>Deprecated, do not use this.</td>
+      </tr>
+      <tr>
+        <td>GetPlayerHWID(&lt;serverID&gt;)</td>
+        <td>Returns the players hardware id as a string.</td>
+        <td>hardware ID is not<br>implemented yet.</td>
+      </tr>
+      <tr>
+        <td>GetPlayerVehicles(&lt;serverID&gt;)</td>
+        <td>Returns the players vehicles as a table of IDs and Data (nil if no cars were found)</td>
+        <td>Doesn't work/inconsistent.</td>
+      </tr>
+      <tr>
+        <td>DropPlayer(&lt;serverID&gt;, &lt;Reason&gt;)</td>
+        <td>Drops the connection for a specific player. Essentially Kicking them</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>SendChatMessage(&lt;serverID&gt;,&lt;Message&gt;)</td>
+        <td>Sends a message over the network as the server to a player use -1 to broadcast</td>
+        <td>use -1 to broadcast</td>
+      </tr>
+      <tr>
+        <td>RegisterEvent(&lt;EventName&gt;,&lt;functionName&gt;)</td>
+        <td>Register a function to be triggered by EventName.&nbsp;<br>functionName is a string representing a global function.</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>TriggerLocalEvent(&lt;EventName&gt;, ...)</td>
+        <td>Trigger any Event registered under &lt;EventName&gt; within the plugin folder.<br>Any further args after &lt;EventName&gt; will be passed through as args.</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>TriggerGlobalEvent(&lt;EventName&gt;, ...)</td>
+        <td>Trigger any Event registered under &lt;EventName&gt; regardless of the plugin folder.<br>Any further args after &lt;EventName&gt; will be passed through as args.</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>CreateThread(&lt;funcName&gt;, &lt;times per sec&gt;)</td>
+        <td>funcName is a string representing the global name of a function.<br>A new thread will be created, on which, function is called x times per sec</td>
+        <td>cannot pass args<br>use this instead of infinite loops<br>times/sec is between 1 and 500</td>
+      </tr>
+      <tr>
+        <td>StopThread()</td>
+        <td>Will stop trying to call the thread function of the current script</td>
+        <td>if there is no thread,&nbsp;<br>nothing happens</td>
+      </tr>
+      <tr>
+        <td>GetPlayerCount()</td>
+        <td>Returns the number of players on the server.</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>Sleep(&lt;millisecs&gt;)</td>
+        <td>pauses <strong>ALL</strong> operations for milliseconds. It is recommended that you only use Sleep inside of a thread.</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>RemoveVehicle(&lt;serverID&gt;,&lt;VehicleID&gt;)</td>
+        <td>Deletes a player's vehicle.</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>GetPlayers()</td>
+        <td>Returns a table of serverID's and their names.&nbsp;</td>
+        <td>nil if there is no players connected</td>
+      </tr>
+      <tr>
+        <td>TriggerClientEvent(&lt;serverID&gt;,&lt;function name&gt;,&lt;Data&gt;)</td>
+        <td>Will send a trigger request to the client lua.</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>Set(&lt;configID&gt;, &lt;new value&gt;)</td>
+        <td>Will change the running-config of the server depending on the ID.</td>
+        <td>
+          <p>0 for the debug config,</p>
+          <p>1 for the private config,</p>
+          <p>2 for the CarCount Config,</p>
+          <p>3 for the MaxPlayers config,</p>
+          <p>4 for the Map,</p>
+          <p>5 for the Name,</p>
+          <p>6 for the Description,</p>
+          <p>any other ID will result in a console warning.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>exit</td>
+        <td>will close the server.</td>
+        <td>&nbsp;</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<h1>Players</h1>
+<p>When a player connects to your server, they are assigned a serverID starting from 0 and counting upwards. serverIDs are reused; if a player leaves and re-joins they will not be assigned a new serverID, they will simply get another available one. When the server restarts, serverIDs will be reset.</p>
+<h2>Static Identifiers</h2>
+<p>Players in BeamMP have 3 static identifiers which can be obtained from their serverID being their name, discordID, and their hardwareID or HWID. (though the latter of the aforementioned isn't implemented, we will act as if it is) Each of the three ID types has their own origins and strength's/weaknesses to using them for player identification.</p>
+<figure class="table">
+  <table>
+    <thead>
+      <tr>
+        <th>ID TYPE</th>
+        <th>PROS</th>
+        <th>CONS</th>
+        <th>FUNCTION TO OBTAIN</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>name</td>
+        <td>easy to obtain, straightforward</td>
+        <td>not secure</td>
+        <td>GetPlayerName(&lt;serverID&gt;)</td>
+      </tr>
+      <tr>
+        <td>discordID</td>
+        <td>fairly secure</td>
+        <td>inconvenient</td>
+        <td>GetPlayerDiscordID(&lt;serverID&gt;)</td>
+      </tr>
+      <tr>
+        <td>HWID</td>
+        <td>extremely secure</td>
+        <td>hard to obtain</td>
+        <td>GetPlayerHWID(&lt;serverID&gt;)</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<h1>Vehicles</h1>
+<p>Vehicles in beamMP have 3 attributes that the server pays attention to, the owner's serverID, the vehicles vehicleID and it's data. The the Owner's serverID is straight forward, it is the serverID, every vehicle also has an ID, vehicle IDs are not unique to the vehicle; two vehicles may have the same ID, assuming they're from different owners. Unlike serverIDs, vehicleIDs <strong>are reused</strong>, for example, if I have 4 vehicles, their IDs are 0, 1, 2 and, 3 if I delete the vehicle in vehicleID 2, I will have 0, 1 and, 3, when I spawn a new vehicle, the new vehicle will slot into ID 2. Lastly, the last attribute vehicles have is data, data contains a vehicle, name, parts, and other data; as the name implies. data is stored as a raw JSON string, so you will need a <a href="https://gist.github.com/tylerneylon/59f4bcf316be525b30ab">JSON library</a> alternatively, you can manually step through the string and dig out the information you need.</p>

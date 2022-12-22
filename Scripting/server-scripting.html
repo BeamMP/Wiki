@@ -1,0 +1,41 @@
+<!--
+title: Server Side Scripting
+description: 
+published: true
+date: 2022-12-22T09:23:10.870Z
+tags: 
+editor: ckeditor
+dateCreated: 2020-06-17T19:32:59.868Z
+-->
+
+<p>GetPlayerName(&lt;PlayersServerID&gt;) -- Returns the players discord name as a string</p>
+<p>GetPlayerDiscordID(&lt;PlayersServerID&gt;) -- Returns the players discord id as a string</p>
+<p>GetPlayerHWID(&lt;PlayersServerID&gt;) -- Returns the players hardware id as a string. This is a generated string by us.</p>
+<p>GetPlayerVehicles(&lt;PlayersServerID&gt;) -- Returns the players vehicles as a object/array</p>
+<p>DropPlayer(&lt;PlayersServerID&gt;, &lt;Reason&gt;) -- Drops the connection for a specific player. Essentially Kicking them</p>
+<p>SendChatMessage(&lt;Message&gt;) -- Sends a message over the network as the server.</p>
+<p>CancelEvent() -- Cancels the event from happening</p>
+<p>&nbsp;</p>
+<p>"onPlayerJoin" -- Returns the players ID -- A player has joined and loaded in</p>
+<p>"onPlayerConnecting" -- Returns the players ID -- A player is loading in (Before loading the map)</p>
+<p>"onPlayerJoining" -- Returns the players ID -- A player is loading the map and will be joined soon</p>
+<p>"onChatMessage" -- Returns the players ID that sent it + the senders name + the chat message -- A chat message was sent. This would be good for making a commands system</p>
+<p>"onVehicleSpawn" -- Returns the players ID, the vehicle ID and the vehicle data -- This is called when someone spawns a vehicle.</p>
+<p>&nbsp;</p>
+<p>RegisterEvent(&lt;EventName&gt;,&lt;functionName&gt;) -- will register that function to the event specified both must be a string</p>
+<p>TriggerLocalEvent(&lt;EventName&gt;) -- will call every registered function in the same plugin folder</p>
+<p>TriggerGlobalEvent(&lt;EventName&gt;) -- will call every registered function in any plugin folder</p>
+<p>function onInit() -- if declared in a lua file it will be called once C++ successfully finished loading the current lua file</p>
+<p>&nbsp;</p>
+<p>CreateThread(&lt;functionName&gt;) -- will execute the function on a dedicated thread</p>
+<p>GetPlayerCount() -- will return how many players are connected</p>
+<p>Sleep(&lt;millisecs&gt;) -- will pause execution for the amount of time specified (warning doing so will pause the entire server if you didn't create a thread)</p>
+<p>&nbsp;</p>
+<p>GetPlayers() -- will return a table of IDs with Names</p>
+<p>example : &nbsp;</p>
+<p>if GetPlayers() ~= nil then</p>
+<p>&nbsp; &nbsp;for ID,Name in pairs(GetPlayers()) do</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;print(ID)</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;print(Name)</p>
+<p>&nbsp; &nbsp;end</p>
+<p>end</p>

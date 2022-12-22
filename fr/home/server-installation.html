@@ -1,0 +1,243 @@
+<!--
+title: Créer un serveur
+description: Comment créer un serveur fonctionnel de A à Z
+published: true
+date: 2022-12-22T09:24:11.917Z
+tags: 
+editor: ckeditor
+dateCreated: 2021-04-12T14:10:39.390Z
+-->
+
+<h1>Avant de commencer</h1>
+<p><span class="text-big">Créer un serveur BeamMP est facile et gratuit</span></p>
+<p>Les serveurs sont une partie importante au fonctionnement de BeamMP. Sans ces derniers, les clients ne pourraient pas communiquer entre eux.<br>Un serveur BeamMP consiste en un fichier .exe, un fichier de configuration (ce dernier contient le port, le nombre de joueurs maximum etc...), un fichier log et un dossier ressources.</p>
+<figure class="image image-style-align-left"><img src="/server1.png" alt="Image of server folder (Contains 4 items total)">
+  <figcaption>A look inside the server folder</figcaption>
+</figure>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1>Redirection des ports</h1>
+<p>Si vous voulez que des joueurs d'internet puissent rejoindre votre serveur, vous devrez opérer une redirection de ports. Ce processus peut faire peur aux premiers abords mais il est relativement simple si bien effectué. Nous vous invitons à suivre un tutoriel adapté à votre opérateur internet et à votre box. Voici <a href="https://assistance.orange.fr/livebox-modem/toutes-les-livebox-et-modems/installer-et-utiliser/piloter-et-parametrer-votre-materiel/le-parametrage-avance-reseau-nat-pat-ip/configurer-des-regles-nat-pat/livebox-4-configurer-pour-utiliser-un-jeu-ou-une-application-serveur_189538-735102">un exemple</a> avec l'opérateur Orange.</p>
+<p>Le port que vous redirigez devra être le <strong>même </strong>que celui indiqué dans le fichier Server.cfg du serveur. Le serveur utilise les protocoles TCP et UDP.</p>
+<p>Notez que pour l'instant le serveur supporte uniquement le protocole IPv4.</p>
+<h1>Obtenir une clé d'authentification</h1>
+<p>Dans un premier temps, rendez-vous sur le <a href="https://beammp.com/keymaster">Keymaster</a>, cliquez sur "Keys" dans le menu à gauche puis sur "here". Remplissez le champ Server Name et Server IP. Notez que ces deux champs sont uniquemement pour reconnaître vos serveurs, si vous ne souhaitez pas indiquer d'adresse IP mettez 0.0.0.0. Par défaut vous aurez un nombre limité de clés. Une clé peut être utilisée pour un seul serveur. Cette limitation a été posée afin d'éviter les abus potentiels sur la création de multiple serveurs.</p>
+<p>Une fois que vous avez crée votre clé, copiez celle-ci et rentrez la dans le champ <strong>AuthKey</strong> du fichier de configuration du serveur. Cette dernière devrait être gardée privée, elle sera indiquée par le champ "--------------" tout au long de ce tutoriel.&nbsp;</p>
+<p>&nbsp;</p>
+<h1>Installation</h1>
+<h2>Windows</h2>
+<h3>Avant de commencer</h3>
+<p>Vérifiez que vous avez bien redirigés les ports de votre routeur avant de commencer ! Cette étape est cruciale pour le bon fonctionnement du serveur.</p>
+<p>Pour commencer, téléchargez le fichier du serveur sur <a href="https://www.beammp.com/">beammp.com</a> puis décompressez le fichier .zip téléchargé dans un dossier. Double cliquez sur le fichier <span style="font-family:'Courier New', Courier, monospace;"><strong>BeamMP-Server</strong>.exe</span> pour l'ouvrir. Le serveur va générer les fichiers nécessaires à son bon fonctionnement, une fois que le fichier Server.cfg est apparu dans le dossier du serveur vous pouvez arrêter ce dernier.</p>
+<h3>Gérer le serveur</h3>
+<p>Une fois le serveur configuré (voir <i>Comment utiliser le fichier de configuration </i>plus bas) ouvez<span style="font-family:'Courier New', Courier, monospace;"> <strong>BeamMP-Server</strong>.exe</span> pour le démarrer.</p>
+<p>Pour arrêter le serveur vous pouvez simplement utilier la croix en haut à droite de la fenêtre.</p>
+<p>&nbsp;</p>
+<h2>Linux</h2>
+<h3>Build (recommandé)</h3>
+<p>Le serveur peut être build sur Linux. Cependant les builds ne sont pas fournies, vous devrez le faire vous même. BeamMP est officiellement supporté sur Debian 9 et 10, un tutoriel peut être trouvé <a href="https://github.com/BeamMP/BeamMP-Server#how-to-build">ici</a>.</p>
+<h3>En utilisant Wine (non recommandé, uniquement sur vous ne pouvez pas build le serveur)</h3>
+<p>Si vous voulez utiliser Wine, le processus est globalement le même, seulement vous devrez installer Wine avant.</p>
+<h4>Installation de Wine</h4>
+<p>Dans un premier, mettez à jour tous les paquets de votre distribution Linux à l'aide des commandes suivantes:</p>
+<blockquote>
+  <p>$ sudo apt update</p>
+  <p>$ sudo apt upgrade</p>
+</blockquote>
+<p>Le serveur fonctionne uniquement avec la version dev de Wine, pour l'installer servez vous de la commande suivante:</p>
+<blockquote>
+  <p>$ sudo apt install wine</p>
+</blockquote>
+<p>Une fois ces étapes terminées vous pouvez installer le serveur.</p>
+<h4>Installation du serveur</h4>
+<p>Une fois que Wine est installé, téléchargez le fichier .zip du serveur puis décompressez le dans un dossier de votre choix.</p>
+<p>Enfin, pour lancer le serveur, utilisez:</p>
+<blockquote>
+  <p>$ wine BeamMP-Server.exe</p>
+</blockquote>
+<p>Pour quitter le serveur utilisez CTRL + C</p>
+<p>Si vous avez une erreur de Wine ntlm_auth, vous devrez installer le paquet winbind.</p>
+<h1>Comment utiliser le fichier de configuration</h1>
+<p>Le fichier de configuration (Server.cfg) peut être ouvert avec n'importe quel editeur de texte tel que notepad ou notepad++.</p>
+<figure class="image"><img src="/capture.png"></figure>
+<ul>
+  <li>Note: Le fichier de configuration utilise un format</li>
+  <li><span style="font-family:'Courier New', Courier, monospace;">Clé = "valeur"</span></li>
+  <li>N'utilisez pas de caractères spéciaux tel que <span style="font-family:'Courier New', Courier, monospace;"><i>#</i></span> ou<i> </i><span style="font-family:'Courier New', Courier, monospace;"><i><strong>"</strong></i></span><strong>.</strong></li>
+</ul>
+<p>Une fois dans le fichier de configuration, vous devrez modifier une multitude de lignes.</p>
+<p>La première est le nom du serveur (<strong>Name</strong>), c'est celui qui sera affiché dans la liste des serveurs en jeu.</p>
+<p>Ensuite, vous devrez générer une clé d'authentification (<strong>AuthKey</strong>), les étapes sont expliqué à <i>Obtenir une clé d'authentification</i> plus haut.</p>
+<p>Voici un tableau de tous les paramètres:</p>
+<figure class="table">
+  <table>
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Valeur par défaut</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Debug</td>
+        <td>Permet d'afficher les lignes de débogage dans la console</td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td>Private</td>
+        <td>Empêche le serveur de s'afficher dans la liste des serveurs en jeu</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td>Port</td>
+        <td>Le port du serveur, laissez pas défaut sauf si vous avez plusieurs serveur sur une même IP</td>
+        <td>30814</td>
+      </tr>
+      <tr>
+        <td>Cars</td>
+        <td>Combien de véhicules un seul joueur peut avoir au maximum</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>MaxPlayers</td>
+        <td>La limite des joueurs sur le serveur</td>
+        <td>10</td>
+      </tr>
+      <tr>
+        <td>Map</td>
+        <td>La map que le serveur utilisera</td>
+        <td>/levels/gridmap/info.json</td>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>Le nom du serveur dans la liste des serveurs en jeu</td>
+        <td>BeamMP New Server</td>
+      </tr>
+      <tr>
+        <td>Desc</td>
+        <td>La description du serveur dans la liste des serveurs en jeu</td>
+        <td>BeamMP Default Description</td>
+      </tr>
+      <tr>
+        <td>use</td>
+        <td>Le dossier à utiliser pour les mods</td>
+        <td>Resources</td>
+      </tr>
+      <tr>
+        <td>AuthKey</td>
+        <td>La clé d'authentification du serveur (<strong>requis</strong>)</td>
+        <td>aucune</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>&nbsp;</p>
+<h1>Comment ajouter des mods sur votre serveur</h1>
+<ul>
+  <li>Les véhicules et les maps s'installent de la même façon. Cependant l'utilisation d'une map nécessite une étape suplémentaire. Pour installer un mod, glissez simplement le .zip de ce dernier dans le dossier <i><strong>Ressources\Client.</strong></i></li>
+  <li>Si vous ne souhaitez pas utiliser une map moddé, il n'y a aucune étape supplémentaire, les mods devraient être téléchargés et installés automatiquement.</li>
+</ul>
+<p><strong>Utiliser une map custom:</strong></p>
+<ul>
+  <li>Dans un premier temps, mettez le fichier .zip de votre map dans le dossier <strong>/Ressources/Client</strong></li>
+  <li>Ensuite, ouvrez le fichier .zip de votre map, puis rendez vous dans le dossier <i><strong>levels</strong></i>. Vous devriez voir un dossier avec le nom de votre map.</li>
+  <li>Copiez le <strong>nom </strong>de ce dossier puis dans le fichier Server.cfg à la ligne Map (/levels/gridmap/info.json) remplacez gridmap par le nom du dossier.</li>
+  <li>Exemple: le dossier s'appelle <strong>ma_map_custom </strong>vous devrez mettre<strong> /levels/ma_map_custom/info.json </strong>à la ligne Map du fichier de configuration du serveur.</li>
+</ul>
+<p>C'est tout ! Votre map custom devrait fonctionner.</p>
+<p>&nbsp;</p>
+<h2>Liste des maps par défaut</h2>
+<p>Voici une liste de toutes les maps par défaut du jeu</p>
+<ul>
+  <li>/levels/gridmap/info.json</li>
+  <li>/levels/automation_test_track/info.json</li>
+  <li>/levels/east_coast_usa/info.json</li>
+  <li>/levels/hirochi_raceway/info.json</li>
+  <li>/levels/italy/info.json</li>
+  <li>/levels/jungle_rock_island/info.json</li>
+  <li>/levels/industrial/info.json</li>
+  <li>/levels/small_island/info.json</li>
+  <li>/levels/smallgrid/info.json</li>
+  <li>/levels/utah/info.json</li>
+  <li>/levels/west_coast_usa/info.json</li>
+  <li>/levels/driver_training/info.json</li>
+  <li>/levels/derby/info.json</li>
+</ul>
+<h1>Mettre de la couleur dans le nom de votre serveur</h1>
+<p>Il vous suffit d'ajouter ces caractères dans le nom de votre serveur.</p>
+<p>Exemple: ^2Ce texte sera vert ^net celui ci vert et souligné. Pour finir, ^rce texte sera normal.</p>
+<figure class="table">
+  <table>
+    <tbody>
+      <tr>
+        <td>^n - souligné</td>
+      </tr>
+      <tr>
+        <td>^0 - noir</td>
+      </tr>
+      <tr>
+        <td>^1 - bleu</td>
+      </tr>
+      <tr>
+        <td>^2 - vert</td>
+      </tr>
+      <tr>
+        <td>^3 - bleu clair</td>
+      </tr>
+      <tr>
+        <td>^4 - rouge</td>
+      </tr>
+      <tr>
+        <td>^5 - rose</td>
+      </tr>
+      <tr>
+        <td>^6 - orange</td>
+      </tr>
+      <tr>
+        <td>^7 - gris</td>
+      </tr>
+      <tr>
+        <td>^8 - gris foncé</td>
+      </tr>
+      <tr>
+        <td>^9 - violet clair</td>
+      </tr>
+      <tr>
+        <td>^a - vert clair</td>
+      </tr>
+      <tr>
+        <td>^b - cyan</td>
+      </tr>
+      <tr>
+        <td>^c - orange foncé</td>
+      </tr>
+      <tr>
+        <td>^d - rose clair</td>
+      </tr>
+      <tr>
+        <td>^e - jaune</td>
+      </tr>
+      <tr>
+        <td>^f - blanc</td>
+      </tr>
+      <tr>
+        <td>^l - gras</td>
+      </tr>
+      <tr>
+        <td>^r - par défaut</td>
+      </tr>
+      <tr>
+        <td>^m - barré</td>
+      </tr>
+      <tr>
+        <td>^o - italique</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p><br>&nbsp;</p>

@@ -1,0 +1,235 @@
+<!--
+title: Server Maintenance
+description: Guides, tips and tricks on how to configure and take care of a BeamMP Server.
+published: true
+date: 2022-12-22T09:23:49.906Z
+tags: 
+editor: ckeditor
+dateCreated: 2021-06-20T08:48:03.720Z
+-->
+
+<h1>How to Install</h1>
+<p>For installation instructions, please see <a href="https://wiki.beammp.com/en/home/server-installation">server installation</a>.</p>
+<h1>The ServerConfig File</h1>
+<p>The server config, which is a file called <code>ServerConfig.toml</code>, uses the <a href="https://toml.io/en/">TOML format</a>. (NOTE: The <i>old</i> server config file was called Server.cfg, but this is no longer used, and the server will warn when this is still present. Please also note that the two config formats are <strong>not</strong> compatible with each other.)</p>
+<p>The config has one section by default, called <code>[General]</code>, which holds the following values:<br>&nbsp;</p>
+<figure class="table">
+  <table>
+    <tbody>
+      <tr>
+        <td>Key</td>
+        <td>Value Type</td>
+        <td>Description</td>
+      </tr>
+      <tr>
+        <td>AuthKey</td>
+        <td>
+          <p>AuthKey format ‘xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx’</p>
+          <p>where all x's are alphanumeric characters (numbers and letters).&nbsp;</p>
+        </td>
+        <td>Used to identify your server with the backend. You should have gotten one while following the installation instructions.</td>
+      </tr>
+      <tr>
+        <td>Debug</td>
+        <td>true / false</td>
+        <td>When enabled (true), will show more messages in the log and provide more information. Enable this if you run into issues. Enabling this will <i>drastically</i> increase the size of the log file.</td>
+      </tr>
+      <tr>
+        <td>Private</td>
+        <td>true / false</td>
+        <td>When enabled (true), your server will not be shown in the server list. Anyone with the correct IP and port can still connect.</td>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>Any "text"</td>
+        <td>Shown as the description of the server in the server list (if the server is public). You can use special characters to format this with colors and styles.</td>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>Any “text”</td>
+        <td>Shown as the name / title of your server in the server list. You can use special characters to format this with colors and styles.</td>
+      </tr>
+      <tr>
+        <td>Map</td>
+        <td>A valid map location, such as <code>'/levels/gridmap_v2/info.json'</code></td>
+        <td>The map your server will host. Has to be installed either by default (a list can be found below) or as a server mod.</td>
+      </tr>
+      <tr>
+        <td>MaxCars</td>
+        <td>Any number ≥ 1</td>
+        <td>The maximum number of cars per player. Any additional cars a player tries to spawn will be deleted instantly.</td>
+      </tr>
+      <tr>
+        <td>Port</td>
+        <td>1024–65535</td>
+        <td>The networking port on which the server will be accessible. For a player to connect to your server directly, they will need your IP and this port.</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Other sections can and should be used by server plugins (Lua API coming soon), like so: <code>[MyMod]</code>.</p>
+<p>The AuthKey <strong><u>HAS</u></strong> to be set by you. It will be empty by default, and needs to be filled with your AuthKey from the installation step earlier. Do not share this Key with anyone and, in screenshots, blur it fully.</p>
+<h2>All Vanilla Maps Names</h2>
+<p>Here are all the stock maps&nbsp;</p>
+<ul>
+  <li>/levels/gridmap_v2/info.json</li>
+  <li>/levels/johnson_valley/info.json</li>
+  <li>/levels/automation_test_track/info.json</li>
+  <li>/levels/east_coast_usa/info.json</li>
+  <li>/levels/hirochi_raceway/info.json</li>
+  <li>/levels/italy/info.json</li>
+  <li>/levels/jungle_rock_island/info.json</li>
+  <li>/levels/industrial/info.json</li>
+  <li>/levels/small_island/info.json</li>
+  <li>/levels/smallgrid/info.json</li>
+  <li>/levels/utah/info.json</li>
+  <li>/levels/west_coast_usa/info.json</li>
+  <li>/levels/driver_training/info.json</li>
+  <li>/levels/derby/info.json</li>
+</ul>
+<h2>Customize the look of your server name</h2>
+<p>Use these special symbols before your text and it'll apply an effect to that text in the server list<br>&nbsp;</p>
+<figure class="table">
+  <table>
+    <tbody>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^r</span></td>
+        <td>reset</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^p</span></td>
+        <td>newline (descriptions only)</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^n</span></td>
+        <td>underline</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^l</span></td>
+        <td>bold</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^m</span></td>
+        <td>strike-through</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^o</span></td>
+        <td>italic</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^0</span></td>
+        <td>black</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^1</span></td>
+        <td>blue</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^2</span></td>
+        <td>green</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^3</span></td>
+        <td>light blue</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^4</span></td>
+        <td>red</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^5</span></td>
+        <td>pink</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^6</span></td>
+        <td>orange</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^7</span></td>
+        <td>grey</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^8</span></td>
+        <td>dark grey</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^9</span></td>
+        <td>light purple</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^a</span></td>
+        <td>light green</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^b</span></td>
+        <td>light blue</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^c</span></td>
+        <td>dark orange</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^d</span></td>
+        <td>light pink</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^e</span></td>
+        <td>yellow</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:'Courier New', Courier, monospace;">^f</span></td>
+        <td>white</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<h1>The Server.log file</h1>
+<p>This file will be generated when the server runs. It's a mirror of the messages you see in the console when you run the server. You should attach this file every time you need support from our support staff, and it will never show your AuthKey, so you can usually send it without modifications.</p>
+<p>The format is as follows ($ prefix means “variable”, explained below):<br>&nbsp;</p>
+<pre><code class="language-plaintext">[$DATE $TIME] $CONTEXT [$LOG_LEVEL] $MESSAGE</code></pre>
+<p>Where:</p>
+<ul>
+  <li><code>$DATE</code> is the date of the message, for example 21/07/2021</li>
+  <li><code>$TIME</code> is the time of the message, for example 11:05:23</li>
+  <li><code>$CONTEXT</code> (only visible if in Debug mode and mostly relevant to developers) is the context of the message, which is either:<ul>
+      <li><code>(Player ID) “Player Name”</code>, where the Player's ID is useful for moderation</li>
+      <li>A short name such as “HeartbeatThread”</li>
+    </ul>
+  </li>
+  <li><code>$LOG_LEVEL</code> is one of the levels of importance of a message:<ul>
+      <li><code>DEBUG</code>: Only visible in Debug mode, usually spammy and only important to developers</li>
+      <li><code>INFO</code>: General information</li>
+      <li><code>LUA</code>: Message from a Lua plugin</li>
+      <li><code>WARN</code>: Describes something that isn't supposed to happen, usually</li>
+      <li><code>ERROR</code>: Something went very wrong, or was very unexpected</li>
+      <li><code>FATAL</code>: Something happened that causes the server to shut down</li>
+    </ul>
+  </li>
+  <li><code>$MESSAGE</code> the message itself, usually something that you should pay attention to and understand. In some cases this might be cryptic, but the general rule is that, as long as nothing is visibly wrong with the server and there are no <code>ERROR</code>s, all is good.</li>
+</ul>
+<h1>Updating The Server</h1>
+<h2>Why to Update</h2>
+<p>Whenever a new update is released, you're advised to update your server. Usually this involves bug fixes, stability improvements and security improvements, next to the general new features etc. that are introduced.</p>
+<p>To receive news about updates when they come out, either follow the discord server's “update” channel, look out for it on the forums, or look at / ask the <a href="https://github.com/BeamMP/BeamMP-Server/releases">GitHub releases page</a>.</p>
+<h2>How to Update</h2>
+<p>The server is updated by replacing the old executable with the new one. If you are unsure how to do this, there are step-by-step instructions for Windows and Linux below.</p>
+<p>If you built from source, you just rebuild. Make sure to run <code>git submodule update --init --recursive</code> before you rebuild.</p>
+<h3>On Windows</h3>
+<ol>
+  <li>Go to <a href="https://beammp.com/">BeamMP.com</a> and click the “Download Server” button.</li>
+  <li>Once downloaded, extract the zip file. You should see a few files, one of them the <code>BeamMP-Server.exe</code>. We will call this one the “new executable”.</li>
+  <li>Go to the folder where your current <code>BeamMP-Server.exe</code> executable is located (same folder where your <code>ServerConfig.toml</code> is, usually). We will call this one the “old executable”.</li>
+  <li>Replace the old executable with the new executable (for example by copying or moving the new executable into the folder).</li>
+</ol>
+<h3>On Linux</h3>
+<ol>
+  <li>Go to <a href="https://beammp.com/">BeamMP.com</a> and click the “Download Server” button.</li>
+  <li>Once downloaded, extract the zip file. You should see a few files, one of them the <code>BeamMP-Server-linux</code>. We will call this one the “new executable”.</li>
+  <li>Go to the folder where your current <code>BeamMP-Server-linux</code> executable is located (same folder where your <code>ServerConfig.toml</code> is, usually). We will call this one the “old executable”.</li>
+  <li>Replace the old executable with the new executable (for example by copying or moving the new executable into the folder).</li>
+  <li>Open a terminal in that folder where you just replaced the executable, and run <code>sudo chmod +x BeamMP-Server-linux</code>. This will make sure the server can be run.</li>
+</ol>
+<h2>Automated Updates</h2>
+<p>The server does not support automatic updates or update notifications (yet).</p>
+<p>You can, however, ask the GitHub API for the lastest release by checking the server's version against the tags. You can get that by GET'ing from <code>https://api.github.com/repos/BeamMP/BeamMP-Server/git/refs/tags</code>.</p>
+<h1>&nbsp;</h1>

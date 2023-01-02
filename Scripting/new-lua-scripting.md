@@ -2,7 +2,7 @@
 title: Server-Side Lua Scripting
 description: 
 published: true
-date: 2022-12-22T09:23:06.621Z
+date: 2023-01-02T19:24:25.038Z
 tags: 
 editor: markdown
 dateCreated: 2021-11-27T11:59:46.370Z
@@ -262,7 +262,7 @@ Remembers the function with name `Function Name` as an event handler to event wi
 
 You can register as many handlers to an event as you like.
 
-For a list of events the server provides, see here (TODO link).
+For a list of events the server provides, see [here](/en/Scripting/new-lua-scripting#events-1).
 
 If the event with that name doesn't exist, it's created, and thus RegisterEvent cannot fail. This can be used to create custom events.
 

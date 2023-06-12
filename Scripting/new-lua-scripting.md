@@ -2,7 +2,7 @@
 title: Server-Side Lua Scripting
 description: 
 published: true
-date: 2023-01-02T19:24:25.038Z
+date: 2023-06-12T23:16:30.658Z
 tags: 
 editor: markdown
 dateCreated: 2021-11-27T11:59:46.370Z
@@ -824,7 +824,7 @@ Triggered when the server shuts down. Currently happens after all players were k
 
 ### `onPlayerAuth`
 
-Arguments: `player_name: string`, `player_role: string`, `is_guest: bool`
+Arguments: `player_name: string`, `player_role: string`, `is_guest: bool`, `identifiers: table`
 Cancellable: YES
 
 First event that gets triggered when a player wants to join.

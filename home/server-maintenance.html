@@ -220,17 +220,18 @@ dateCreated: 2021-06-20T08:48:03.720Z
 <h4>On Windows</h4>
 <ol>
   <li>Go to <a href="https://beammp.com/">BeamMP.com</a> and click the “Download Server” button.</li>
-  <li>Once downloaded, extract the zip file. You should see a few files, one of them the <code>BeamMP-Server.exe</code>. We will call this one the “new executable”.</li>
+  <li>Once downloaded, you should see one file called <code>BeamMP-Server.exe</code>. We will call this one the “new executable”.</li>
   <li>Go to the folder where your current <code>BeamMP-Server.exe</code> executable is located (same folder where your <code>ServerConfig.toml</code> is, usually). We will call this one the “old executable”.</li>
   <li>Replace the old executable with the new executable (for example by copying or moving the new executable into the folder).</li>
 </ol>
 <h4>On Linux</h4>
 <ol>
-  <li>Go to <a href="https://beammp.com/">BeamMP.com</a> and click the “Download Server” button.</li>
-  <li>Once downloaded, extract the zip file. You should see a few files, one of them the <code>BeamMP-Server-linux</code>. We will call this one the “new executable”.</li>
-  <li>Go to the folder where your current <code>BeamMP-Server-linux</code> executable is located (same folder where your <code>ServerConfig.toml</code> is, usually). We will call this one the “old executable”.</li>
+  <li>Go to <a href="https://beammp.com/">BeamMP.com</a> and click the “Download Server” button, you will be redirected to the server's Github release page.</li>
+  <li>Download the correct version for your distro (Debian/Ubuntu).</li>
+  <li>Once downloaded, you should see one file called <code>BeamMP-Server-debian</code> or <code>BeamMP-Server-ubuntu</code> depending on the version you've downloaded. We will call this one the “new executable”.</li>
+  <li>Go to the folder where your current <code>BeamMP-Server-debian</code> (or <code>BeamMP-Server-ubuntu</code>) executable is located (same folder where your <code>ServerConfig.toml</code> is, usually). We will call this one the “old executable”.</li>
   <li>Replace the old executable with the new executable (for example by copying or moving the new executable into the folder).</li>
-  <li>Open a terminal in that folder where you just replaced the executable, and run <code>sudo chmod +x BeamMP-Server-linux</code>. This will make sure the server can be run.</li>
+  <li>Open a terminal in that folder where you just replaced the executable, and run <code>sudo chmod +x BeamMP-Server-debian</code> (or <code>sudo chmod +x BeamMP-Server-ubuntu</code>). This will make sure the server can be run.</li>
 </ol>
 <h2>Automated Updates</h2>
 <p>The server does not support automatic updates or update notifications (yet).</p>

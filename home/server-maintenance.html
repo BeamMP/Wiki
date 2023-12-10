@@ -2,7 +2,7 @@
 title: Server Maintenance
 description: Guides, tips and tricks on how to configure and take care of a BeamMP Server.
 published: true
-date: 2022-12-22T09:23:49.906Z
+date: 2023-12-10T10:22:08.351Z
 tags: 
 editor: ckeditor
 dateCreated: 2021-06-20T08:48:03.720Z
@@ -212,16 +212,19 @@ dateCreated: 2021-06-20T08:48:03.720Z
 <p>Whenever a new update is released, you're advised to update your server. Usually this involves bug fixes, stability improvements and security improvements, next to the general new features etc. that are introduced.</p>
 <p>To receive news about updates when they come out, either follow the discord server's “update” channel, look out for it on the forums, or look at / ask the <a href="https://github.com/BeamMP/BeamMP-Server/releases">GitHub releases page</a>.</p>
 <h2>How to Update</h2>
+<h3>If you are using a BeamMP partnered hosting provider</h3>
+<p>If you are using a BeamMP partnered hosting provider, the instructions below likely won't work. We recommend waiting for more details from your hosting provider, or contacting them for assistance.</p>
+<h3>Managing the server yourself</h3>
 <p>The server is updated by replacing the old executable with the new one. If you are unsure how to do this, there are step-by-step instructions for Windows and Linux below.</p>
 <p>If you built from source, you just rebuild. Make sure to run <code>git submodule update --init --recursive</code> before you rebuild.</p>
-<h3>On Windows</h3>
+<h4>On Windows</h4>
 <ol>
   <li>Go to <a href="https://beammp.com/">BeamMP.com</a> and click the “Download Server” button.</li>
   <li>Once downloaded, extract the zip file. You should see a few files, one of them the <code>BeamMP-Server.exe</code>. We will call this one the “new executable”.</li>
   <li>Go to the folder where your current <code>BeamMP-Server.exe</code> executable is located (same folder where your <code>ServerConfig.toml</code> is, usually). We will call this one the “old executable”.</li>
   <li>Replace the old executable with the new executable (for example by copying or moving the new executable into the folder).</li>
 </ol>
-<h3>On Linux</h3>
+<h4>On Linux</h4>
 <ol>
   <li>Go to <a href="https://beammp.com/">BeamMP.com</a> and click the “Download Server” button.</li>
   <li>Once downloaded, extract the zip file. You should see a few files, one of them the <code>BeamMP-Server-linux</code>. We will call this one the “new executable”.</li>

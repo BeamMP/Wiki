@@ -51,6 +51,7 @@ dateCreated: 2020-06-17T21:05:01.162Z
 <p>For the Linux installation, see the next step.</p>
 <p>Please ensure you have port-forwarded before attempting to host a server! Without you ports being forwarded, you cannot host a server to the public!</p>
 <ol>
+  <li>Ensure you have installed the <a href="https://aka.ms/vs/17/release/vc_redist.x64.exe">Visual C++ Redistributables</a> in order to run the server.</li>
   <li>Download the server executable from <a href="https://www.beammp.com/">beammp.com</a>. You should end up with an executable file, called something like <code>BeamMP-Server.exe</code>.</li>
   <li>Once downloaded, make a folder somewhere and put the <code>BeamMP-Server.exe</code> there. This is where your server will live.</li>
   <li>Start the server once by double-clicking on it. This will generate all the necessary files for you, once you see text you can close it and proceed to the next step. You should see a <code>Server.log</code> file and a <code>ServerConfig.toml</code> file next to your <code>BeamMP-Server.exe</code>.</li>
@@ -65,10 +66,10 @@ dateCreated: 2020-06-17T21:05:01.162Z
 <ol>
   <li>Ensure you have the dependencies installed which are listed <a href="https://github.com/BeamMP/BeamMP-Server#runtime-dependencies">here</a>.</li>
   <li>Go to <a href="https://beammp.com/">BeamMP.com</a> and click the “Download Server” button, you will be redirected to the server's Github release page.</li>
-  <li>Download the correct version for your distro (Debian/Ubuntu).</li>
-  <li>Once downloaded, you should see one file called <code>BeamMP-Server-debian</code> or <code>BeamMP-Server-ubuntu</code> depending on the version you've downloaded, among others which you can ignore for now. Make a folder somewhere and put the <code>BeamMP-Server-debian</code> (or <code>BeamMP-Server-ubuntu</code>) there. This is where your server will live.</li>
-  <li>Open a terminal, go to that folder you put the <code>BeamMP-Server-debian</code> (or <code>BeamMP-Server-ubuntu</code>) in, and run <code>chmod +x BeamMP-Server-debian</code> (or <code>sudo chmod +x BeamMP-Server-ubuntu</code>). This ensures that you have permissions to run it.</li>
-  <li>Start the server once by running it with <code>./BeamMP-Server-debian</code> (or <code>./BeamMP-Server-ubuntu</code>). This will generate all the necessary files for you, once you see text you can close it and proceed to the next step. You should see a <code>Server.log</code> file and a <code>ServerConfig.toml</code> file next to your <code>BeamMP-Server-debian</code> (or <code>BeamMP-Server-ubuntu</code>).</li>
+  <li>Download the correct version for your distro. For sake of semplicity it will be called <code>BeamMP-Server-xxx</code> from now on, where <code>xxx</code> denotes the version for the distro you're using.</li>
+  <li>Once downloaded, you should see one file called <code>BeamMP-Server-xxx</code>, among others which you can ignore for now. Make a folder somewhere and put the <code>BeamMP-Server-xxx</code> there. This is where your server will live.</li>
+  <li>Open a terminal, go to that folder you put the <code>BeamMP-Server-xxx</code> in, and run <code>chmod +x BeamMP-Server-xxx</code>. This ensures that you have permissions to run it.</li>
+  <li>Start the server once by running it with <code>./BeamMP-Server-xxx</code>. This will generate all the necessary files for you, once you see text you can close it and proceed to the next step. You should see a <code>Server.log</code> file and a <code>ServerConfig.toml</code> file next to your <code>BeamMP-Server-xxx</code>.</li>
   <li>(optional) It is heavily recommended to set up a user called <code>beammpserver</code> (or similar), as we do NOT recommend running the server as root, sudo or with your personal user account. You should then take steps to make sure that you start the server as this user only.</li>
 </ol>
 <p>Now proceed to the next step.</p>

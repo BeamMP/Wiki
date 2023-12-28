@@ -39,6 +39,34 @@ dateCreated: 2020-07-02T21:06:26.786Z
 <ul>
   <li>We provide binaries for many Linux distributions <a href="https://github.com/BeamMP/BeamMP-Server/releases/latest">here</a>. If there are no binaries for your distribution, you can build it yourself by downloading the source on our <a href="https://github.com/BeamMP/BeamMP-Server">GitHub</a>, a tutorial can be found <a href="https://github.com/BeamMP/BeamMP-Server#build-instructions">here</a>.</li>
 </ul>
+<p><strong>What are the minimum system requirements to run a BeamMP server?</strong></p>
+<ul>
+  <li>RAM: 50+ MiB usable (not counting OS overhead)</li>
+  <li>CPU: >1GHz, preferably multicore</li>
+  <li>OS: Windows, Linux (theoretically any POSIX)</li>
+  <li>GPU: None</li>
+  <li>HDD: 10 MiB + Mods/Plugins</li>
+  <li>Bandwidth: 5-10 Mb/s upload</li>
+</ul>
+<p><strong>Players outside my network can not join my self-hosted server</strong></p>
+<ul>
+  <li>If other players, trying to connect to your server, receive an error code 10060, 10061 or 10038 in their BeamMP launcher, then you should check the following steps:
+    <ul>
+	  <li>Forward port 30814 (or whichever port you set in your ServerConfig.toml), both TCP and UDP protocols.</li>
+	  <li>Allow BeamMP through the Windows Firewall, allow both incoming and outgoing connections. Turning off the firewall will usually NOT work.</li>
+	  <li>Make sure you're not using a VPN (this can cause issues).</li>
+	  <li>Make sure the server is actually running, without any errors or warnings.</li>
+	</ul>
+  </li>
+  <li>You can check if you have successfully portforwarded using the site 'portchecker.co' whilst the server is running.</li>
+  <li>Please note, some internet providers do not offer dedicated IPv4 addresses to your connection, so port forwarding may not be possible, despite it being available in the router.</li>
+  <li>Port forwarding is not possible if you are using a mobile (4G/5G) internet connection.</li>
+</ul>
+<p><strong>I can see my self-hosted server in the server-list, but i can not join it myself</strong></p>
+<ul>
+  <li>If the server is running on the same machine as the game, you yourself have to use Direct Connect to join, with the IP 127.0.0.1 and your server's port.</li>
+  <li>For you to be able to join your own, self-hosted server trough the server-list, your router needs to support NAT-loopback, but this is a function not many home routers support.</li>
+</ul>
 <h1>Miscellaneous</h1>
 <p><strong>Where can I find the code?</strong></p>
 <ul>

@@ -345,15 +345,13 @@ This does not yield the execution of the lua state and nothing will execute in t
 
 WARNING: Do NOT sleep for >500 ms if you have event handlers registered, unless you know *exactly* what you are doing. This is intended to be used to sleep for 1-100 ms, in order to wait for results or similar. A locked up (sleeping) lua state can slow the entire server down drastically if not careful.
 
-## `MP.SendChatMessage(player_id: number, message: string)`
+## `MP.SendChatMessage(player_id: number, message: string) -> boolean,string`
 
 Sends a chat message that only the specified player can see (or everyone if the ID is `-1`).
 In the game, this will not appear as a directed message.
 
 You can use this, for example, to tell a player *why* you cancelled their vehicle spawn, chat message, or similar, or to display some information about your server.
 
-## `MP.TriggerClientEvent(player_id: number, event_name: string, data: string) -> boolean`
-*until v3.1.0*
 
 ## `MP.TriggerClientEvent(player_id: number, event_name: string, data: string) -> boolean,string`
 *since v3.1.0*
@@ -391,7 +389,7 @@ Whether the player is connected.
 
 Gets the display-name of the player.
 
-## `MP.RemoveVehicle(player_id: number, vehicle_id: number)`
+## `MP.RemoveVehicle(player_id: number, vehicle_id: number) -> boolean,string`
 
 Removes the specified vehicle for the specified player.
 
@@ -415,7 +413,7 @@ Whether the player is a guest. A guest is someone who didn't log in, and instead
 
 As guests aren't logged in, you might want to disallow them from joining, for example when running a serious racing server or similar.
 
-## `MP.DropPlayer(player_id: number, [reason: string])`
+## `MP.DropPlayer(player_id: number, [reason: string]) -> boolean,string`
 
 Kicks the player with the specified ID. The reason parameter is optional.
 
@@ -779,7 +777,7 @@ Example:
 ```lua  
 FS.ConcatPaths("a", "b", "/c/d/e/", "/f/", "g", "h.txt")
 ```
-results in
+Results in:
 ```
 a/b/c/d/e/f/g/h.txt
 ```
@@ -872,22 +870,6 @@ Cancellable: YES
 Triggered when a player edits their vehicle and applies the edit. The `data` argument contains the car's change config as json. When cancelled, the edit is not applied.
 
 ### `onVehicleDeleted`
- Lua, among other things.
-
-Custom Commands
-In order to implement custom commands for the server console, the event onConsoleInput can be used. This can be useful when you want to add a way for the server owner to signal something to your plugin, or to display internal state in a custom way.
-
-Here’s an example:
-
-function handleConsoleInput(cmd)
-    local delim = cmd:find(' ')
-    if delim then
-        local message = cmd:sub(delim+1)
-        if cmd:sub(1, delim-1) == "print" then
-            return message
-        end
-    end
-end
 
 Arguments: `player_id: number`, `vehicle_id: number`
 Cancellable: NO
@@ -933,7 +915,7 @@ It's necessary to do the next steps properly.
 
 First, you should search and replace all MP functions. The substitution should add an `MP.` infront of all MP functions, except `print()`.
 
-Example:
+Example:
 
 ```lua
 local players = GetPlayers()
